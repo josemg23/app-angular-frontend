@@ -10,21 +10,26 @@
     <button mat-raised-button color="primary" (click)="addUser()">Crear nuevo usuario</button>
   </mat-card-header>
   <mat-card-content>
-    <div>
-      <mat-select formControlName="department">
-        <mat-label>Departamento</mat-label>
-        <mat-option *ngFor="let dept of departments" [value]="dept.id">{{
-          dept.nombre
-        }}</mat-option>
-      </mat-select>
+    <div fxLayout="row" fxLayoutGap="16px">
+      <mat-form-field appearance="fill" fxFlex="50%">
+        <mat-select formControlName="department">
+          <mat-label>Departamento</mat-label>
+          <mat-option *ngFor="let dept of departments" [value]="dept.id">
+            {{ dept.nombre }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
 
-      <mat-select formControlName="department">
-        <mat-label>Cargo</mat-label>
-        <mat-option *ngFor="let dept of positions" [value]="dept.id">{{
-          dept.nombre
-        }}</mat-option>
-      </mat-select>
+      <mat-form-field appearance="fill" fxFlex="50%">
+        <mat-select formControlName="position">
+          <mat-label>Cargo</mat-label>
+          <mat-option *ngFor="let pos of positions" [value]="pos.id">
+            {{ pos.nombre }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
+
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
       <!--- Note that these columns can be defined in any order.
             The actual rendered columns are set as a property on the row definition" -->
