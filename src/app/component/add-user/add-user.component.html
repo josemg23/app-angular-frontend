@@ -5,46 +5,54 @@
     </mat-card-header>
     <mat-card-content class="modal-content">
       <div class="form-section">
-        <mat-form-field appearance="fill" class="form-field">
-          <mat-label>Departamento</mat-label>
-          <mat-select formControlName="department_id" required>
-            <mat-option>--</mat-option>
-            @for (dept of departments; track dept) {
-              <mat-option [value]="dept.id">{{dept.nombre}}</mat-option>
-            }
-          </mat-select>
+        <!-- Primera fila -->
+        <div class="form-row">
+          <mat-form-field appearance="fill" class="form-field">
+            <mat-label>Departamento</mat-label>
+            <mat-select formControlName="department_id" required>
+              <mat-option>--</mat-option>
+              @for (dept of departments; track dept) {
+                <mat-option [value]="dept.id">{{ dept.nombre }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
 
-        </mat-form-field>
+          <mat-form-field appearance="fill" class="form-field">
+            <mat-label>Cargo</mat-label>
+            <mat-select formControlName="position_id" required>
+              <mat-option>--</mat-option>
+              @for (post of positions; track post) {
+                <mat-option [value]="post.id">{{ post.nombre }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+        </div>
 
-        <mat-form-field appearance="fill" class="form-field">
-          <mat-label>Cargo</mat-label>
-          <mat-select formControlName="position_id" required>
-            <mat-option>--</mat-option>
-            @for (post of positions; track post) {
-              <mat-option [value]="post.id">{{post.nombre}}</mat-option>
-            }
-          </mat-select>
-        </mat-form-field>
+        <!-- Segunda fila -->
+        <div class="form-row">
+          <mat-form-field appearance="fill" class="form-field">
+            <mat-label>Usuario</mat-label>
+            <input matInput formControlName="username" />
+          </mat-form-field>
 
-        <mat-form-field appearance="fill" class="form-field">
-          <mat-label>Usuario</mat-label>
-          <input matInput formControlName="username" />
-        </mat-form-field>
+          <mat-form-field appearance="fill" class="form-field">
+            <mat-label>Correo</mat-label>
+            <input matInput formControlName="email" type="email" />
+          </mat-form-field>
+        </div>
 
-        <mat-form-field appearance="fill" class="form-field">
-          <mat-label>Correo</mat-label>
-          <input matInput formControlName="email" type="email" />
-        </mat-form-field>
+        <!-- Tercera fila -->
+        <div class="form-row">
+          <mat-form-field appearance="fill" class="form-field">
+            <mat-label>Nombre</mat-label>
+            <input matInput formControlName="first_name" />
+          </mat-form-field>
 
-        <mat-form-field appearance="fill" class="form-field">
-          <mat-label>Nombre</mat-label>
-          <input matInput formControlName="first_name" />
-        </mat-form-field>
-
-        <mat-form-field appearance="fill" class="form-field">
-          <mat-label>Apellido</mat-label>
-          <input matInput formControlName="last_name" />
-        </mat-form-field>
+          <mat-form-field appearance="fill" class="form-field">
+            <mat-label>Apellido</mat-label>
+            <input matInput formControlName="last_name" />
+          </mat-form-field>
+        </div>
       </div>
 
       <div class="modal-actions">

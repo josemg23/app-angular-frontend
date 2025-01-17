@@ -17,9 +17,15 @@
 }
 
 .form-section {
-  display: grid;
-  grid-template-columns: 1fr;
+  display: flex;
+  flex-direction: column;
   gap: 20px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Dos columnas por fila */
+  gap: 20px; /* Espaciado entre columnas */
 }
 
 .form-field {
@@ -32,16 +38,13 @@
   margin-top: 20px;
 }
 
-.save-button {
-  width: 48%;
-}
-
+.save-button,
 .close-button {
   width: 48%;
   text-align: center;
-  text-decoration: none;
 }
 
-button:focus, .close-button:focus {
+button:focus,
+.close-button:focus {
   outline: none;
 }

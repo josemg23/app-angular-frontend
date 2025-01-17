@@ -1,0 +1,9 @@
+.select-container {
+  display: flex;
+  gap: 16px;
+}
+
+.select-field {
+  flex: 1;
+  min-width: 200px; /* Ajusta según tus necesidades */
+}
