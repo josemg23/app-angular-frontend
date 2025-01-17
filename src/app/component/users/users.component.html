@@ -1,0 +1,102 @@
+<mat-card appearance="outlined" class="mat-elevation-z0">
+  <mat-card-header
+    style="display: flex; justify-content: space-between; align-items: center"
+  >
+    <div>
+      <p style="margin: 0">Módulo de Administración</p>
+      <p style="margin: 0">Administración de Usuarios</p>
+
+    </div>
+    <button mat-raised-button color="primary" (click)="addUser()">Crear nuevo usuario</button>
+  </mat-card-header>
+  <mat-card-content>
+    <div>
+      <mat-select formControlName="department">
+        <mat-label>Departamento</mat-label>
+        <mat-option *ngFor="let dept of departments" [value]="dept.id">{{
+          dept.nombre
+        }}</mat-option>
+      </mat-select>
+
+      <mat-select formControlName="department">
+        <mat-label>Cargo</mat-label>
+        <mat-option *ngFor="let dept of positions" [value]="dept.id">{{
+          dept.nombre
+        }}</mat-option>
+      </mat-select>
+    </div>
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+      <!--- Note that these columns can be defined in any order.
+            The actual rendered columns are set as a property on the row definition" -->
+
+      <!-- Position Column -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef>ID</th>
+        <td mat-cell *matCellDef="let element">{{ element.id }}</td>
+      </ng-container>
+
+      <!-- Position Column -->
+      <ng-container matColumnDef="username">
+        <th mat-header-cell *matHeaderCellDef>Usuario</th>
+        <td mat-cell *matCellDef="let element">{{ element.username }}</td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="first_name">
+        <th mat-header-cell *matHeaderCellDef>Nombre</th>
+        <td mat-cell *matCellDef="let element">{{ element.first_name }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="last_name">
+        <th mat-header-cell *matHeaderCellDef>Apellido</th>
+        <td mat-cell *matCellDef="let element">{{ element.last_name }}</td>
+      </ng-container>
+
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="department_id">
+        <th mat-header-cell *matHeaderCellDef>Deparmento</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.department.nombre }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="position_id">
+        <th mat-header-cell *matHeaderCellDef>Cargo</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.position.nombre }}
+        </td>
+      </ng-container>
+
+      <!-- Weight Column -->
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef>email</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.email }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef>Acciones</th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-icon-button (click)="editUser(element.id)">
+            <!-- <mat-icon>edit</mat-icon> -->
+            Edit
+          </button>
+          <button mat-icon-button (click)="deleteUser(element.id)">
+            <!-- <mat-icon>delete</mat-icon> -->
+            Delete
+          </button>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+    <mat-paginator
+      #paginator
+      [pageSize]="5"
+      [pageSizeOptions]="[5, 10, 20]"
+      showFirstLastButtons
+    >
+    </mat-paginator>
+  </mat-card-content>
+</mat-card>
