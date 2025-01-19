@@ -8,7 +8,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { UserInterface } from '../interfaces/userinterface';
-import { ToastrService } from 'ngx-toastr';
+import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { UsersService } from '../../services/users.service';
 
 
@@ -22,7 +22,8 @@ import { UsersService } from '../../services/users.service';
     MatSelectModule,
     MatInputModule,
     MatIconModule,
-    FormsModule],
+    FormsModule,
+    ToastrModule,],
   templateUrl: './add-user.component.html',
   styleUrl: './add-user.component.css'
 })
@@ -96,14 +97,15 @@ export class AddUserComponent  implements OnInit{
       if (this.isEdit) {
         this.service.updateUser(_data).subscribe((data) => {
           this.service.getAllUsers().subscribe((data) => {});
-          this.toastr.success('Employee updated successfully');
+          // this.toastr.success('Usuario actualizado');
+
           this.closeModal();
         });
       } else {
         this.service.createUser(_data).subscribe((data) => {
           console.log('Employee added successfully', data);
           this.service.getAllUsers().subscribe((data) => {});
-          this.toastr.success('Employee added successfully');
+          // this.toastr.success('Usuario registrado');
           this.closeModal();
         });
       }
