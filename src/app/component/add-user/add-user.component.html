@@ -1,11 +1,74 @@
+<h2 mat-dialog-title>{{ title }}</h2>
 <form [formGroup]="empForm" (ngSubmit)="saveUser()">
+<div mat-dialog-content style="border-radius: 0;">
+    <div class="form-container">
+      <div class="form-container">
+        <div class="form-row">
+          <mat-form-field appearance="fill" class="form-field">
+            <mat-label>Departamento</mat-label>
+            <mat-select formControlName="department_id" required>
+              <mat-option>--</mat-option>
+              @for (dept of departments; track dept) {
+              <mat-option [value]="dept.id">{{ dept.nombre }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" class="form-field">
+            <mat-label>Cargo</mat-label>
+            <mat-select formControlName="position_id" required>
+              <mat-option>--</mat-option>
+              @for (post of positions; track post) {
+              <mat-option [value]="post.id">{{ post.nombre }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="form-container">
+        <div class="form-row">
+          <mat-form-field appearance="fill" class="form-field">
+            <mat-label>Usuario</mat-label>
+            <input matInput formControlName="username" />
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" class="form-field">
+            <mat-label>Correo</mat-label>
+            <input matInput formControlName="email" type="email" />
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="form-container">
+        <div class="form-row">
+          <mat-form-field appearance="fill" class="form-field">
+            <mat-label>Nombre(s)</mat-label>
+            <input matInput formControlName="first_name" />
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" class="form-field">
+            <mat-label>Apellido(s)</mat-label>
+            <input matInput formControlName="last_name" />
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div mat-dialog-actions align="end">
+    <button mat-raised-button  type="submit" style="border-radius: 0;background-color: rgb(13, 110, 253);color: white ">{{ buttonText }}</button>
+    <a mat-raised-button color="accent" (click)="closeModal()" style="border-radius: 0%;">Cancelar</a>
+  </div>
+</form>
+
+<!-- <form [formGroup]="empForm" (ngSubmit)="saveUser()">
   <mat-card class="modal-card">
     <mat-card-header class="modal-header">
       <h2>{{ title }}</h2>
     </mat-card-header>
     <mat-card-content class="modal-content">
       <div class="form-section">
-        <!-- Primera fila -->
+
         <div class="form-row">
           <mat-form-field appearance="fill" class="form-field">
             <mat-label>Departamento</mat-label>
@@ -28,7 +91,6 @@
           </mat-form-field>
         </div>
 
-        <!-- Segunda fila -->
         <div class="form-row">
           <mat-form-field appearance="fill" class="form-field">
             <mat-label>Usuario</mat-label>
@@ -41,7 +103,6 @@
           </mat-form-field>
         </div>
 
-        <!-- Tercera fila -->
         <div class="form-row">
           <mat-form-field appearance="fill" class="form-field">
             <mat-label>Nombre</mat-label>
@@ -61,4 +122,4 @@
       </div>
     </mat-card-content>
   </mat-card>
-</form>
+</form> -->

@@ -1,9 +1,23 @@
-.select-container {
-  display: flex;
-  gap: 16px;
+
+
+.mat-mdc-row .mat-mdc-cell {
+  border-bottom: 1px solid transparent;
+  border-top: 1px solid transparent;
+  cursor: pointer;
+
 }
 
-.select-field {
-  flex: 1;
-  min-width: 200px; /* Ajusta según tus necesidades */
+.mat-mdc-row:hover .mat-mdc-cell {
+  border-color: currentColor;
 }
+
+.demo-row-is-clicked {
+  font-weight: bold;
+}
+
+.th .td{
+  text-align: center;
+}
+
+
+

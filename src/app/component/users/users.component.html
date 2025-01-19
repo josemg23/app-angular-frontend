@@ -1,17 +1,11 @@
 <mat-card appearance="outlined" class="mat-elevation-z0">
   <mat-card-header
-    style="display: flex; justify-content: space-between; align-items: center"
-  >
-    <div>
-      <p style="margin: 0">Módulo de Administración</p>
-      <p style="margin: 0">Administración de Usuarios</p>
-
-    </div>
-    <button mat-raised-button color="primary" (click)="addUser()">Crear nuevo usuario</button>
-  </mat-card-header>
-  <mat-card-content>
-    <div fxLayout="row" fxLayoutGap="16px">
-      <mat-form-field appearance="fill" fxFlex="50%">
+  style="display: flex; justify-content: space-between; align-items: flex-start; background-color: #f5f7fa; padding: 10px; border-bottom: 1px solid #ddd;">
+  <div style="display: flex; flex-direction: column; align-items: flex-start; width: 100%;">
+    <p style="margin: 0; font-size: 14px; color: #6c757d;">Módulo de Administración</p>
+    <h3 style="margin: 0; font-size: 20px; color: #333;">Administración de Usuarios</h3>
+    <div style="display: flex; gap: 16px; width: 50%; margin-top: 10px;">
+      <mat-form-field appearance="fill" style="flex: 1;">
         <mat-select formControlName="department">
           <mat-label>Departamento</mat-label>
           <mat-option *ngFor="let dept of departments" [value]="dept.id">
@@ -19,8 +13,7 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
-
-      <mat-form-field appearance="fill" fxFlex="50%">
+      <mat-form-field appearance="fill" style="flex: 1;">
         <mat-select formControlName="position">
           <mat-label>Cargo</mat-label>
           <mat-option *ngFor="let pos of positions" [value]="pos.id">
@@ -29,77 +22,85 @@
         </mat-select>
       </mat-form-field>
     </div>
+  </div>
+  <button mat-button (click)="addUser()" style="
+    background-color: #e0e2e6;
+    color: black;
+    border-radius: 0%;
+    margin-top: 60px;
+    width: 220px;
+    height: 45px;
+    align-self: flex-start;
+  ">
+    Crear nuevo usuario
+  </button>
+</mat-card-header>
 
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-      <!--- Note that these columns can be defined in any order.
-            The actual rendered columns are set as a property on the row definition" -->
+  <mat-card-content>
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 demo-table">
 
-      <!-- Position Column -->
       <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef>ID</th>
-        <td mat-cell *matCellDef="let element">{{ element.id }}</td>
+        <th mat-header-cell *matHeaderCellDef style="text-align: center;">ID</th>
+        <td mat-cell *matCellDef="let element" style="text-align: center;">{{ element.id }}</td>
       </ng-container>
 
-      <!-- Position Column -->
       <ng-container matColumnDef="username">
-        <th mat-header-cell *matHeaderCellDef>Usuario</th>
-        <td mat-cell *matCellDef="let element">{{ element.username }}</td>
+        <th mat-header-cell *matHeaderCellDef style="text-align: center;">Usuario</th>
+        <td mat-cell *matCellDef="let element" style="text-align: center;">{{ element.username }}</td>
       </ng-container>
 
-      <!-- Name Column -->
       <ng-container matColumnDef="first_name">
-        <th mat-header-cell *matHeaderCellDef>Nombre</th>
-        <td mat-cell *matCellDef="let element">{{ element.first_name }}</td>
+        <th mat-header-cell *matHeaderCellDef style="text-align: center;">Nombre</th>
+        <td mat-cell *matCellDef="let element" style="text-align: center;">{{ element.first_name }}</td>
       </ng-container>
 
       <ng-container matColumnDef="last_name">
-        <th mat-header-cell *matHeaderCellDef>Apellido</th>
-        <td mat-cell *matCellDef="let element">{{ element.last_name }}</td>
+        <th mat-header-cell *matHeaderCellDef style="text-align: center;">Apellido</th>
+        <td mat-cell *matCellDef="let element" style="text-align: center;">{{ element.last_name }}</td>
       </ng-container>
 
-      <!-- Symbol Column -->
       <ng-container matColumnDef="department_id">
-        <th mat-header-cell *matHeaderCellDef>Deparmento</th>
-        <td mat-cell *matCellDef="let element">
+        <th mat-header-cell *matHeaderCellDef style="text-align: center;">Deparmento</th>
+        <td mat-cell *matCellDef="let element" style="text-align: center;">
           {{ element.department.nombre }}
         </td>
       </ng-container>
 
-      <ng-container matColumnDef="position_id">
-        <th mat-header-cell *matHeaderCellDef>Cargo</th>
-        <td mat-cell *matCellDef="let element">
+      <ng-container matColumnDef="position_id" >
+        <th mat-header-cell *matHeaderCellDef style="text-align: center;">Cargo</th>
+        <td mat-cell *matCellDef="let element" style="text-align: center;">
           {{ element.position.nombre }}
         </td>
       </ng-container>
 
-      <!-- Weight Column -->
       <ng-container matColumnDef="email">
-        <th mat-header-cell *matHeaderCellDef>email</th>
-        <td mat-cell *matCellDef="let element">
+        <th mat-header-cell *matHeaderCellDef style="text-align: center;">email</th>
+        <td mat-cell *matCellDef="let element" style="text-align: center;">
           {{ element.email }}
         </td>
       </ng-container>
 
       <ng-container matColumnDef="action">
-        <th mat-header-cell *matHeaderCellDef>Acciones</th>
-        <td mat-cell *matCellDef="let element">
-          <button mat-icon-button style="color: #4caf50;" (click)="editUser(element.id)">
-            <mat-icon>edit</mat-icon>
+        <th mat-header-cell *matHeaderCellDef style="text-align: center;">Acciones</th>
+        <td mat-cell *matCellDef="let element" style="text-align: center;">
+
+          <button mat-icon-button style="color: #4caf50" (click)="editUser(element.id)" >
+            <div  style="vertical-align: middle;  display: inline-flex;">
+              <mat-icon aria-hidden="false" aria-label="Editar" fontIcon="edit_square" ></mat-icon>
+            </div>
+
           </button>
-          <button mat-icon-button style="color: #f44336;" (click)="deleteUser(element.id)">
-            <mat-icon>delete</mat-icon>
+          <button mat-icon-button style="color: #f44336" (click)="deleteUser(element.id)">
+            <div  style="vertical-align: middle;  display: inline-flex;">
+              <mat-icon aria-hidden="false" aria-label="Eliminar" fontIcon="delete"></mat-icon>
+            </div>
           </button>
         </td>
       </ng-container>
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
-    <mat-paginator
-      #paginator
-      [pageSize]="5"
-      [pageSizeOptions]="[5, 10, 20]"
-      showFirstLastButtons
-    >
+    <mat-paginator #paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons>
     </mat-paginator>
   </mat-card-content>
 </mat-card>

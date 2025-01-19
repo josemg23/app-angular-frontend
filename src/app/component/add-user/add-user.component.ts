@@ -29,7 +29,8 @@ import { UsersService } from '../../services/users.service';
 export class AddUserComponent  implements OnInit{
 
   dialogData: UserInterface = {} as UserInterface;
-  title = 'Add User';
+  title = 'Registrar Usuario';
+  buttonText = 'Registrar';
   isEdit = false;
   departments = [] as any[];
   positions = [] as any[];
@@ -49,7 +50,8 @@ export class AddUserComponent  implements OnInit{
 
     this.dialogData = this.data;
     if (this.dialogData.id) {
-      this.title = 'Edit User';
+      this.title = 'Editar Usuario';
+      this.buttonText = 'Actualizar';
       this.isEdit = true;
       this.service.getIdUser(this.dialogData.id).subscribe((item) => {
         let _data = item;
@@ -93,7 +95,6 @@ export class AddUserComponent  implements OnInit{
       };
       if (this.isEdit) {
         this.service.updateUser(_data).subscribe((data) => {
-          console.log('Employee updated successfully', data);
           this.service.getAllUsers().subscribe((data) => {});
           this.toastr.success('Employee updated successfully');
           this.closeModal();
