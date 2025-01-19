@@ -25,6 +25,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { AddUserComponent } from '../add-user/add-user.component';
+import { ConfirmDeleteComponent } from '../confirm-delete/confirm-delete.component';
 
 @Component({
   selector: 'app-users',
@@ -111,13 +112,24 @@ export class UsersComponent implements OnInit, OnDestroy, AfterViewInit {
  }
 
   deleteUser(id: number) {
-    if (confirm('Are you sure you want to delete this employee?')) {
-      let sub = this.service.deleteUser(id).subscribe((data) => {
-        this.getAllUsers();
-      });
-      this.subscription.add(sub);
+    const dialogRef = this.dialog.open(ConfirmDeleteComponent, {
+      width: '250px',
+      data: {
+        title: 'Eliminar registro',
+        message: 'Est s seguro de eliminar este registro?',
+      },
+    });
 
-    }
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('result', result);
+
+      if (result === true) {
+        let sub = this.service.deleteUser(id).subscribe((data) => {
+          this.getAllUsers();
+        });
+        this.subscription.add(sub);
+      }
+    });
   }
 
   editUser(id: number) {
