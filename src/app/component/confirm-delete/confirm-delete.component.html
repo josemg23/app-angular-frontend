@@ -1,8 +1,13 @@
-<h2 mat-dialog-title class="dialog-title">Confirmar Eliminación</h2>
-<div mat-dialog-content class="dialog-content" >
-  <p>¿Estás seguro de eliminar el usuario seleccionado?</p>
-</div>
-<div mat-dialog-actions class="dialog-actions">
-  <button mat-raised-button  [mat-dialog-close]="true" class="btn-primary">Aceptar</button>
-  <button mat-button mat-dialog-close="false" class="btn-secondary">Cancelar</button>
+<div class="modal fade" id="confirmDeleteModal"  aria-labelledby="confirmDeleteLabel" aria-hidden="false">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body"  style="border-top: none;margin-top: 30px;">
+        <p>{{ message }}</p>
+      </div>
+      <div class="modal-footer" style="border-top: none;">
+        <button type="button" class="btn btn-primary" (click)="close(true) ">Eliminar</button>
+        <button type="button" class="btn btn-secondary  text-primary" data-bs-dismiss="modal" (click)="close(false)" >Cancelar</button>
+      </div>
+    </div>
+  </div>
 </div>

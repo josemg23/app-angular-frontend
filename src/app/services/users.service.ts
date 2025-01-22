@@ -21,7 +21,6 @@ export class UsersService {
   }
 
 
-
   getDepartments() {
     return this.http.get<DepartmentInterface[]>(`${this.apiUrl}/departments`);
   }
@@ -31,7 +30,7 @@ export class UsersService {
   }
 
   createUser(data: UserInterface) {
-    return this.http.post(`${this.apiUrl}/users`, data);
+     return this.http.post(`${this.apiUrl}/users`, data);
   }
 
   updateUser(data : UserInterface){

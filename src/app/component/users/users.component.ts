@@ -17,16 +17,19 @@ import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
 import { UsersService } from '../../services/users.service';
 import {
   DepartmentInterface,
-  DepartmentInterfaceResponse,
   PositionInterface,
   UserInterface,
+  UserInterfaceResponse,
 } from '../interfaces/userinterface';
 import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { AddUserComponent } from '../add-user/add-user.component';
 import { ConfirmDeleteComponent } from '../confirm-delete/confirm-delete.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faPenToSquare , faTrash } from '@fortawesome/free-solid-svg-icons';
 
+declare var bootstrap: any;
 @Component({
   selector: 'app-users',
   imports: [
@@ -41,22 +44,31 @@ import { ConfirmDeleteComponent } from '../confirm-delete/confirm-delete.compone
     MatButtonModule,
     MatIconModule,
     MatPaginatorModule,
-  ],
+    FontAwesomeModule,
+    ConfirmDeleteComponent,
+    AddUserComponent
+],
   templateUrl: './users.component.html',
   styleUrl: './users.component.css',
 })
 export class UsersComponent implements OnInit, OnDestroy, AfterViewInit {
   constructor(private dialog: MatDialog, private service: UsersService) {}
 
-  userList: UserInterface[] = [];
+
+
+  faPenToSquare = faPenToSquare;
+  faTrash = faTrash;
+  userList: UserInterfaceResponse[] = [];
   departments: any[] = [];
   positions: any[] = [];
-  dataSource!: MatTableDataSource<UserInterface>;
+  dataSource!: MatTableDataSource<UserInterfaceResponse>;
   displayedColumns: string[] = [
     'id',
     'username',
     'first_name',
+    'middle_name',
     'last_name',
+    'middle_last_name',
     'email',
     'department_id',
     'position_id',
@@ -64,7 +76,8 @@ export class UsersComponent implements OnInit, OnDestroy, AfterViewInit {
   ];
   subscription: Subscription = new Subscription();
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-
+  @ViewChild(ConfirmDeleteComponent) confirmDeleteComponent!: ConfirmDeleteComponent;
+  @ViewChild(AddUserComponent) addUserComponent!: AddUserComponent;
   ngOnInit() {
     this.getAllUsers();
     this.getAlldepartments();
@@ -83,6 +96,7 @@ export class UsersComponent implements OnInit, OnDestroy, AfterViewInit {
     let sub = this.subscription.add(
       this.service.getAllUsers().subscribe((data: UserInterface[]) => {
         this.userList = data;
+
         this.dataSource = new MatTableDataSource<UserInterface>(this.userList);
         this.dataSource.paginator = this.paginator;
       })
@@ -93,15 +107,12 @@ export class UsersComponent implements OnInit, OnDestroy, AfterViewInit {
 
 
   OpenPoopUp(id: number) {
-    this.dialog.open(AddUserComponent , {
-      width: '50%',
-      exitAnimationDuration: '900ms',
-      enterAnimationDuration: '900ms',
-      data: {
-        id: id,
 
-      }
-    }).afterClosed().subscribe((data) => {
+    this.addUserComponent.dialogData = { id: id } as UserInterface;
+    this.addUserComponent.ngOnInit(); 
+    this.addUserComponent.open();
+
+    this.addUserComponent.modalClosed.subscribe(() => {
       this.getAllUsers();
     });
   }
@@ -112,28 +123,23 @@ export class UsersComponent implements OnInit, OnDestroy, AfterViewInit {
  }
 
   deleteUser(id: number) {
-    const dialogRef = this.dialog.open(ConfirmDeleteComponent, {
-      width: '250px',
-      data: {
-        title: 'Eliminar registro',
-        message: 'Est s seguro de eliminar este registro?',
-      },
-    });
-
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log('result', result);
-
-      if (result === true) {
+    this.confirmDeleteComponent.title = 'Eliminar registro';
+    this.confirmDeleteComponent.message = '¿Estás seguro de eliminar este registro?';
+    const confirmActionListener = (event: CustomEvent) => {
+      if (event.detail === true) {
         let sub = this.service.deleteUser(id).subscribe((data) => {
           this.getAllUsers();
         });
         this.subscription.add(sub);
       }
-    });
+      window.removeEventListener('confirmAction', confirmActionListener as EventListener);
+    };
+    window.addEventListener('confirmAction', confirmActionListener as EventListener);
+    this.confirmDeleteComponent.open();
+
   }
 
   editUser(id: number) {
-
     this.OpenPoopUp(id);
   }
 

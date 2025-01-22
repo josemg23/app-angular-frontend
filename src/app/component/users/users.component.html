@@ -1,106 +1,121 @@
-<mat-card appearance="outlined" class="mat-elevation-z0">
-  <mat-card-header
-  style="display: flex; justify-content: space-between; align-items: flex-start; background-color: #f5f7fa; padding: 10px; border-bottom: 1px solid #ddd;">
-  <div style="display: flex; flex-direction: column; align-items: flex-start; width: 100%;">
-    <p style="margin: 0; font-size: 14px; color: #6c757d;">Módulo de Administración</p>
-    <h3 style="margin: 0; font-size: 20px; color: #333;">Administración de Usuarios</h3>
-    <div style="display: flex; gap: 16px; width: 50%; margin-top: 10px;">
-      <mat-form-field appearance="fill" style="flex: 1;">
-        <mat-select formControlName="department">
-          <mat-label>Departamento</mat-label>
-          <mat-option *ngFor="let dept of departments" [value]="dept.id">
-            {{ dept.nombre }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-      <mat-form-field appearance="fill" style="flex: 1;">
-        <mat-select formControlName="position">
-          <mat-label>Cargo</mat-label>
-          <mat-option *ngFor="let pos of positions" [value]="pos.id">
-            {{ pos.nombre }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+<div class="mt-2" style="background-color: #f8f9fa">
+  <!-- Cabecera -->
+  <div class="border p-4 header-container">
+    <div class="div-detail-header-container">
+      <p style="margin: 0; font-size: 14px; color: #6c757d">
+        Módulo de Administración
+      </p>
+      <h3 style="margin: 0; font-size: 26px; color: #333; line-height: 34.4px">
+        Administración de Usuarios
+      </h3>
+
+      <div class="select-filters">
+        <div class="col-md-7">
+          <select class="form-select" style="background-color: #e0e7eb">
+            <option selected>Seleccione un Departamento</option>
+            <option *ngFor="let dept of departments" [value]="dept.id">
+              {{ dept.nombre }}
+            </option>
+          </select>
+        </div>
+        <div class="col-md-7">
+          <select class="form-select" style="background-color: #e0e7eb">
+            <option selected>Seleccione un Cargo</option>
+            <option *ngFor="let pos of positions" [value]="pos.id">
+              {{ pos.nombre }}
+            </option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <button class="btn btn-outline button-create" (click)="addUser()">
+      Crear nuevo usuario
+    </button>
+  </div>
+  <!-- Tabla -->
+  <div class="table-responsive border p-4" style="background-color: #f8f9fa">
+    <div class="card">
+      <div class="card-body">
+        <table
+          class="table"
+          style="background-color: #ffffff; border-collapse: collapse"
+        >
+          <thead>
+            <tr>
+              <th style="border-bottom: 1px solid #eeeff2; text-align: center">
+                Usuario
+              </th>
+              <th style="border-bottom: 1px solid #eeeff2; text-align: center">
+                Nombres
+              </th>
+              <th style="border-bottom: 1px solid #eeeff2; text-align: center">
+                Apellidos
+              </th>
+              <th style="border-bottom: 1px solid #eeeff2; text-align: center">
+                Departamento
+              </th>
+              <th style="border-bottom: 1px solid #eeeff2; text-align: center">
+                Cargo
+              </th>
+              <th style="border-bottom: 1px solid #eeeff2; text-align: center">
+                Email
+              </th>
+              <th style="border-bottom: 1px solid #eeeff2; text-align: center">
+                Acciones
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let user of dataSource.data">
+              <td class="th-table-users">{{ user.username }}</td>
+              <td class="th-table-users">{{ user.first_name }}</td>
+              <td class="th-table-users">{{ user.last_name }}</td>
+              <td class="th-table-users">{{ user.department?.nombre }}</td>
+              <td class="th-table-users">{{ user.position?.nombre }}</td>
+              <td class="th-table-users">{{ user.email }}</td>
+              <td class="th-table-users">
+                <button
+                  type="button"
+                  class="btn btn-sm btn-outline-success me-2"
+                  style="border: 0"
+                  (click)="editUser(user.id)"
+                >
+                  <fa-icon [icon]="faPenToSquare"></fa-icon> Editar
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-sm btn-outline-danger"
+                  style="border: 0"
+                  (click)="deleteUser(user.id)"
+                >
+                  <fa-icon [icon]="faTrash"></fa-icon> Eliminar
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <!-- <mat-paginator
+        #paginator
+        [pageSize]="5"
+        [pageSizeOptions]="[5, 10, 20]"
+        showFirstLastButtons
+      >
+      </mat-paginator> -->
+        <!-- Pie de la tabla -->
+        <div
+          class="d-flex justify-content-start"
+          style="background-color: #f8f9fa; position: sticky; bottom: 0"
+        >
+          <p class="mb-3 mt-4" style="margin-left: 25px">
+            <strong>Total Registros: {{ dataSource.data.length }} </strong>
+          </p>
+        </div>
+      </div>
     </div>
   </div>
-  <button mat-button (click)="addUser()" style="
-    background-color: #e0e2e6;
-    color: black;
-    border-radius: 0%;
-    margin-top: 60px;
-    width: 220px;
-    height: 45px;
-    align-self: flex-start;
-  ">
-    Crear nuevo usuario
-  </button>
-</mat-card-header>
+</div>
 
-  <mat-card-content>
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 demo-table">
 
-      <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef style="text-align: center;">ID</th>
-        <td mat-cell *matCellDef="let element" style="text-align: center;">{{ element.id }}</td>
-      </ng-container>
+<app-confirm-delete></app-confirm-delete>
+<app-add-user></app-add-user>
 
-      <ng-container matColumnDef="username">
-        <th mat-header-cell *matHeaderCellDef style="text-align: center;">Usuario</th>
-        <td mat-cell *matCellDef="let element" style="text-align: center;">{{ element.username }}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="first_name">
-        <th mat-header-cell *matHeaderCellDef style="text-align: center;">Nombre</th>
-        <td mat-cell *matCellDef="let element" style="text-align: center;">{{ element.first_name }}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="last_name">
-        <th mat-header-cell *matHeaderCellDef style="text-align: center;">Apellido</th>
-        <td mat-cell *matCellDef="let element" style="text-align: center;">{{ element.last_name }}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="department_id">
-        <th mat-header-cell *matHeaderCellDef style="text-align: center;">Deparmento</th>
-        <td mat-cell *matCellDef="let element" style="text-align: center;">
-          {{ element.department.nombre }}
-        </td>
-      </ng-container>
-
-      <ng-container matColumnDef="position_id" >
-        <th mat-header-cell *matHeaderCellDef style="text-align: center;">Cargo</th>
-        <td mat-cell *matCellDef="let element" style="text-align: center;">
-          {{ element.position.nombre }}
-        </td>
-      </ng-container>
-
-      <ng-container matColumnDef="email">
-        <th mat-header-cell *matHeaderCellDef style="text-align: center;">email</th>
-        <td mat-cell *matCellDef="let element" style="text-align: center;">
-          {{ element.email }}
-        </td>
-      </ng-container>
-
-      <ng-container matColumnDef="action">
-        <th mat-header-cell *matHeaderCellDef style="text-align: center;">Acciones</th>
-        <td mat-cell *matCellDef="let element" style="text-align: center;">
-
-          <button mat-icon-button style="color: #4caf50" (click)="editUser(element.id)" >
-            <div  style="vertical-align: middle;  display: inline-flex;">
-              <mat-icon aria-hidden="false" aria-label="Editar" fontIcon="edit_square" ></mat-icon>
-            </div>
-
-          </button>
-          <button mat-icon-button style="color: #f44336" (click)="deleteUser(element.id)">
-            <div  style="vertical-align: middle;  display: inline-flex;">
-              <mat-icon aria-hidden="false" aria-label="Eliminar" fontIcon="delete"></mat-icon>
-            </div>
-          </button>
-        </td>
-      </ng-container>
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-    </table>
-    <mat-paginator #paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons>
-    </mat-paginator>
-  </mat-card-content>
-</mat-card>

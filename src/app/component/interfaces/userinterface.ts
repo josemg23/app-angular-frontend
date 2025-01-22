@@ -2,9 +2,25 @@ export interface UserInterface {
   id: number;
   username: string;
   first_name: string;
-  email: string;
+  middle_name: string;
   last_name: string;
+  middle_last_name: string;
+  email: string;
   department_id: number;
+  position_id: number;
+}
+
+export interface UserInterfaceResponse {
+  id: number;
+  username: string;
+  first_name: string;
+  middle_name: string;
+  last_name: string;
+  middle_last_name: string;
+  email: string;
+  department_id: number;
+  department?: DepartmentInterface;
+  position?: PositionInterface;
   position_id: number;
 }
 

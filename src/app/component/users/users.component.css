@@ -1,23 +1,40 @@
 
-
-.mat-mdc-row .mat-mdc-cell {
-  border-bottom: 1px solid transparent;
-  border-top: 1px solid transparent;
-  cursor: pointer;
-
+.button-create {
+  background-color: #e0e2e6;
+  color: black;
+  border-radius: 0%;
+  margin-top: 65px;
+  margin-right: 10px;
+  width: 260px;
+  height: 45px;
+  align-self: flex-start;
+  font-size: 16px;
 }
 
-.mat-mdc-row:hover .mat-mdc-cell {
-  border-color: currentColor;
+.select-filters {
+  display: flex;
+  gap: 16px;
+  width: 50%;
+  margin-top: 10px;
 }
 
-.demo-row-is-clicked {
-  font-weight: bold;
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  background-color: #f5f7fa;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
 }
 
-.th .td{
+.th-table-users {
   text-align: center;
+  border-bottom: 1px solid #eeeff2;
 }
 
-
-
+.div-detail-header-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+}

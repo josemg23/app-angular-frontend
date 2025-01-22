@@ -1,58 +1,157 @@
-<h2 mat-dialog-title class="modal-header">{{ title }}</h2>
-<form [formGroup]="empForm" (ngSubmit)="saveUser()">
-  <div mat-dialog-content class="modal-body">
-    <div class="form-container">
-      <div class="form-row">
-        <mat-form-field appearance="fill" class="form-field">
-          <mat-label>Departamento</mat-label>
-          <mat-select formControlName="department_id" required>
-            <mat-option>--</mat-option>
-            @for (dept of departments; track dept) {
-            <mat-option [value]="dept.id">{{ dept.nombre }}</mat-option>
-            }
-          </mat-select>
-        </mat-form-field>
-
-        <mat-form-field appearance="fill" class="form-field">
-          <mat-label>Cargo</mat-label>
-          <mat-select formControlName="position_id" required>
-            <mat-option>--</mat-option>
-            @for (post of positions; track post) {
-            <mat-option [value]="post.id">{{ post.nombre }}</mat-option>
-            }
-          </mat-select>
-        </mat-form-field>
+<div
+  class="modal fade"
+  id="addUserModal"
+  tabindex="-1"
+  aria-labelledby="addUserLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{ title }}</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
       </div>
-
-      <div class="form-row">
-        <mat-form-field appearance="fill" class="form-field">
-          <mat-label>Usuario</mat-label>
-          <input matInput formControlName="username" />
-        </mat-form-field>
-
-        <mat-form-field appearance="fill" class="form-field">
-          <mat-label>Correo</mat-label>
-          <input matInput formControlName="email" type="email" />
-        </mat-form-field>
-      </div>
-
-      <div class="form-row">
-        <mat-form-field appearance="fill" class="form-field">
-          <mat-label>Nombre(s)</mat-label>
-          <input matInput formControlName="first_name" />
-        </mat-form-field>
-
-        <mat-form-field appearance="fill" class="form-field">
-          <mat-label>Apellido(s)</mat-label>
-          <input matInput formControlName="last_name" />
-        </mat-form-field>
-      </div>
+      <form [formGroup]="empForm" (ngSubmit)="saveUser()">
+        <div class="modal-body">
+          <div class="container-fluid">
+            <div class="form-container">
+              <div class="row mb-3">
+                <div class="col-md-6">
+                  <label for="department_id" class="form-label"
+                    >Departamento</label
+                  >
+                  <select
+                    id="department_id"
+                    class="form-select"
+                    formControlName="department_id"
+                    required
+                  >
+                    <option value="">--</option>
+                    <option *ngFor="let dept of departments" [value]="dept.id">
+                      {{ dept.nombre }}
+                    </option>
+                  </select>
+                </div>
+                <div class="col-md-6">
+                  <label for="position_id" class="form-label">Cargo</label>
+                  <select
+                    id="position_id"
+                    class="form-select"
+                    formControlName="position_id"
+                    required
+                  >
+                    <option value="">--</option>
+                    <option *ngFor="let post of positions" [value]="post.id">
+                      {{ post.nombre }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-md-6">
+                  <label for="username" class="form-label">Usuario</label>
+                  <input
+                    id="username"
+                    type="text"
+                    class="form-control"
+                    formControlName="username"
+                  />
+                </div>
+                <div class="col-md-6">
+                  <label for="email" class="form-label">Correo</label>
+                  <input
+                    id="email"
+                    type="email"
+                    class="form-control"
+                    formControlName="email"
+                  />
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-md-6">
+                  <label for="first_name" class="form-label">Nombre(s)</label>
+                  <input
+                    id="first_name"
+                    type="text"
+                    class="form-control"
+                    formControlName="first_name"
+                  />
+                </div>
+                <div class="col-md-6">
+                  <label for="middle_name" class="form-label"
+                    >Segundo Nombre</label
+                  >
+                  <input
+                    id="middle_name"
+                    type="text"
+                    class="form-control"
+                    formControlName="middle_name"
+                  />
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-md-6">
+                  <label for="last_name" class="form-label"
+                    >Primer Apellido</label
+                  >
+                  <input
+                    id="last_name"
+                    type="text"
+                    class="form-control"
+                    formControlName="last_name"
+                  />
+                </div>
+                <div class="col-md-6">
+                  <label for="middle_last_name" class="form-label"
+                    >Segundo Apellido</label
+                  >
+                  <input
+                    id="middle_last_name"
+                    type="text"
+                    class="form-control"
+                    formControlName="middle_last_name"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="submit"
+            class="btn btn-primary"
+            style="
+              width: 150px;
+              font-weight: 300;
+              border-radius: 0%;
+              border: 1px solid #007bff;
+              text-transform: capitalize;
+            "
+          >
+            {{ buttonText }}
+          </button>
+          <button
+            type="button"
+            class="btn btn-outline"
+            data-bs-dismiss="modal"
+            (click)="closeModal()"
+            style="
+              background-color: #e0e2e6;
+              color: black;
+              border-radius: 0%;
+              border: 1px solid #e0e2e6;
+              width: 150px;
+            "
+          >
+            Cancelar
+          </button>
+        </div>
+      </form>
     </div>
   </div>
-  <div mat-dialog-actions class="modal-footer">
-    <button mat-raised-button type="submit" class="btn-primary">{{ buttonText }}</button>
-    <button mat-button (click)="closeModal()" class="btn-secondary">Cancelar</button>
-  </div>
-</form>
-
-
+</div>
