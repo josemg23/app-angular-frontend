@@ -18,12 +18,15 @@
       </div>
       <form [formGroup]="empForm" (ngSubmit)="saveUser()">
         <div class="modal-body">
-          <div class="container-fluid">
+          <div
+            class="container-fluid"
+            style="margin-top: 20px; margin-bottom: 20px"
+          >
             <div class="form-container">
               <div class="row mb-3">
                 <div class="col-md-6">
-                  <label for="department_id" class="form-label"
-                    >Departamento</label
+                  <label for="department_id" class="form-label">
+                    <strong> Departamento: </strong></label
                   >
                   <select
                     id="department_id"
@@ -31,21 +34,21 @@
                     formControlName="department_id"
                     required
                   >
-                    <option value="">--</option>
+                    <option selected>Seleccione un Departamento</option>
                     <option *ngFor="let dept of departments" [value]="dept.id">
                       {{ dept.nombre }}
                     </option>
                   </select>
                 </div>
                 <div class="col-md-6">
-                  <label for="position_id" class="form-label">Cargo</label>
+                  <label for="position_id" class="form-label"> <strong> Cargo: </strong></label>
                   <select
                     id="position_id"
                     class="form-select"
                     formControlName="position_id"
                     required
                   >
-                    <option value="">--</option>
+                    <option selected>Seleccione un Cargo</option>
                     <option *ngFor="let post of positions" [value]="post.id">
                       {{ post.nombre }}
                     </option>
@@ -54,7 +57,7 @@
               </div>
               <div class="row mb-3">
                 <div class="col-md-6">
-                  <label for="username" class="form-label">Usuario</label>
+                  <label for="username" class="form-label"> <strong> Usuario: </strong></label>
                   <input
                     id="username"
                     type="text"
@@ -63,7 +66,7 @@
                   />
                 </div>
                 <div class="col-md-6">
-                  <label for="email" class="form-label">Correo</label>
+                  <label for="email" class="form-label"> <strong> Email: </strong></label>
                   <input
                     id="email"
                     type="email"
@@ -74,7 +77,7 @@
               </div>
               <div class="row mb-3">
                 <div class="col-md-6">
-                  <label for="first_name" class="form-label">Nombre(s)</label>
+                  <label for="first_name" class="form-label"> <strong> Primer Nombre: </strong></label>
                   <input
                     id="first_name"
                     type="text"
@@ -84,7 +87,7 @@
                 </div>
                 <div class="col-md-6">
                   <label for="middle_name" class="form-label"
-                    >Segundo Nombre</label
+                    > <strong> Segundo Nombre: </strong></label
                   >
                   <input
                     id="middle_name"
@@ -97,7 +100,7 @@
               <div class="row mb-3">
                 <div class="col-md-6">
                   <label for="last_name" class="form-label"
-                    >Primer Apellido</label
+                    > <strong> Primer Apellido: </strong></label
                   >
                   <input
                     id="last_name"
@@ -108,7 +111,7 @@
                 </div>
                 <div class="col-md-6">
                   <label for="middle_last_name" class="form-label"
-                    >Segundo Apellido</label
+                    ><strong> Segundo Apellido: </strong></label
                   >
                   <input
                     id="middle_last_name"
